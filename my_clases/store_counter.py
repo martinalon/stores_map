@@ -7,10 +7,10 @@ from pyspark.sql import SparkSession
 
 curren_path =  os.getcwd()
 root_path = os.path.dirname(curren_path)
+path_file = root_path + '/resources/denue_slim.csv'
 
-denue_gdf = gpd.read_file(root_path + '/resources/denue_inegi_14_.shp')
 
-def counter(gdf, gouper, column, name):
+def counter(path_file, grouper, column, name):
     """
     This function counts the total of posibilities in "column" 
     grouper by the "grouper".
@@ -23,19 +23,18 @@ def counter(gdf, gouper, column, name):
     Return.
     stores a csv file in the resources folder
     """
-
-    df =  pd.DataFrame(gdf[[gouper, column]])
-    my_grouper = gouper
-    column2 = column
-
     #Create PySpark SparkSession
     spark = SparkSession.builder \
         .master("local[*]") \
         .getOrCreate()
     
+    df = spark.read.csv(path_file, header=True)
+    my_grouper = grouper
+    column2 = column
+
     #Create PySpark DataFrame from Pandas
-    spark_df = spark.createDataFrame(df) 
-    spark_df.createOrReplaceTempView("table")   
+    #spark_df = spark.createDataFrame(df) 
+    df.createOrReplaceTempView("table")   
     df2 = spark.sql(
         ''' 
         SELECT {0}, COUNT({1}) as total  
@@ -48,4 +47,4 @@ def counter(gdf, gouper, column, name):
     return()
 
 
-counter(denue_gdf, 'ageb', 'nombre_act', 'stores_by_ageb')
+counter(path_file, 'ageb', 'nombre_act', 'stores_by_ageb')

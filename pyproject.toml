@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "map-env"
+version = "0.1.0"
+description = ""
+authors = ["martinalon <martinalonsofloresgonzalez@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+plotly = "^5.18.0"
+geopandas = "^0.14.2"
+pyspark = "^3.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

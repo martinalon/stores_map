@@ -7,7 +7,7 @@ from pyspark.sql import SparkSession
 
 curren_path =  os.getcwd()
 root_path = os.path.dirname(curren_path)
-path_file = root_path + '/resources/denue_slim.csv'
+my_path_file = root_path + '/resources/denue_slim.csv'
 
 
 def counter(path_file, grouper, column, name):
@@ -16,7 +16,8 @@ def counter(path_file, grouper, column, name):
     grouper by the "grouper".
 
     Parameters.
-    gouper: This is the column that will help us to group the options
+    path_file: This is the path of the csv  with the information 
+    grouper: This is the column that will help us to group the options
     column: this is the column with the options the we want to count
     name: Nome of the csv file
 
